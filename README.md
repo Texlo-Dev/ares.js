@@ -20,8 +20,11 @@ const client = new Ares.Client({
 ```
 The object takes a few options.
 `prefix`: The command prefix for the bot. This may be changed later in the prefix command.
+
 `selfbot`: Whether to run Ares.js in selfbot mode. If excluded, defaults to false.
+
 `disabledServers` (Only for selfbots): Servers that the selfbot will not be running on.
+
 `ownerID`: The owner of the bot. This can be one or an array of IDs.
 
 Then, if you would like to use the default commands (help, eval, ping, etc...), just add the following:
