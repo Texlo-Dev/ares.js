@@ -32,10 +32,42 @@ Then, if you would like to use the default commands (help, eval, ping, etc...), 
 ```js
 client.registerDefaults();
 ```
+Next, register your command directory.
+```js
+client.registerCommands();
+```
 
 Then, to start the bot, simply call `login()`, like normal, with your token.
 ```js
 client.login(token);
 ```
+
+# Creating Commands
+To create a command, just simply require the command class from the main file.
+```js
+const { Command } = require('ares.js');
+```
+
+The, extend that class with a class name of your choice. Then, add the constructor and super, which will hold your command options.
+
+```js
+class ClassNameHere extends Command {
+   constructor(client) {
+      super(client, {
+          name: 'commandname',
+          description: 'Your description',
+          usage: 'usage here',
+          aliases: ['aliases', 'here']
+      })
+      
+    }
+    
+    run (message, args) {
+       //your code here
+    }
+```
+In the run function, your command code will be typed there. 
+And that's all!
+
 
 
