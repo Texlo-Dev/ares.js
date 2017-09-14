@@ -20,23 +20,25 @@ class Command {
     async reload() {
         return new Promise((resolve, reject) => {
             try {
-                let cmdDir = this.client.commands.get(this.name).name;
-                delete require.cache[require.resolve(`../commands/${cmdDir.toLowerCase()}/${cmdDir}.js`)];
-                let cmdFile = require(`../commands/${cmdDir.toLowerCase()}/${cmdDir}.js`);
+                let command = this.client.commands.get(this.name);
+                let name = [].push(command.name);
+                
+                delete require.cache[require.resolve(`../commands/${command.category.toLowerCase()}/${cmd.name}.js`)];
+                let cmdFile = require(`../commands/${command.category.toLowerCase()}/${command.name}.js`);
                 let cmd = new cmdFile(this.client);
-                this.client.commands.delete(cmdDir);
+                this.client.commands.delete(command.name);
                 this.client.aliases.forEach((cmd, alias) => {
-                    if (cmd === cmdDir) this.client.aliases.delete(alias);
+                    if (cmd === command) this.client.aliases.delete(alias);
                 });
-                cmd.name = cmdDir;
-                cmd.category = cmdDir.category;
-                this.client.commands.set(cmdDir, cmd);
+                cmd.name = name[0];
+                cmd.category = command.category;
+                this.client.commands.set(name[0], cmd);
                 if (cmd.aliases && cmd.aliases.length) {
                     cmd.aliases.forEach(a => {
-                        this.client.aliases.set(a, cmdDir);
+                        this.client.aliases.set(a, name[0]);
                     });
                 }
-                resolve(cmdDir);
+                resolve(true);
             } catch (e) {
                 reject(e);
             }
