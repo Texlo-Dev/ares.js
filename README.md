@@ -19,6 +19,7 @@ const client = new Ares.Client({
 });
 ```
 The object takes a few options.
+
 `prefix`: The command prefix for the bot. This may be changed later in the prefix command.
 
 `selfbot`: Whether to run Ares.js in selfbot mode. If excluded, defaults to false.
