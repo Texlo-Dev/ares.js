@@ -29,9 +29,13 @@ The object takes a few options.
 `ownerID`: The owner of the bot. This can be one or an array of IDs.
 
 Then, if you would like to use the default commands (help, eval, ping, etc...), just add the following:
-```client.registerDefaults();```
+```js
+client.registerDefaults();
+```
 
 Then, to start the bot, simply call `login()`, like normal, with your token.
-```client.login(token);```
+```js
+client.login(token);
+```
 
 
