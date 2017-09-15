@@ -38,7 +38,7 @@ class Command {
                         this.client.aliases.set(a, name[0]);
                     });
                 }
-                resolve(true);
+                resolve(command);
             } catch (e) {
                 reject(e);
             }

@@ -1,16 +1,20 @@
 const Discord = require('discord.js');
 const { Collection } = require('discord.js');
-const { promisify } = require('util');
 const CommandLoader = require('./CommandLoader');
 let loader = new CommandLoader();
-const m = require('../events/message');
-const ready = require('../events/ready');
-const readdir = promisify(require('fs').readdir);
-const mkdir = promisify(require('fs').mkdir);
-const fs = require('fs');
-
 
 class AresClient extends Discord.Client {
+    /**
+     * Ares Client options
+     * @property {boolean} [selfbot=false] - Whether selfbot mode should be activated.
+     * @property {string} [prefix=>] - Prefix for the bot.
+     * @property {string|string[]} [ownerID] - The owner (or owners) of the bot
+     * @property {string[]} [disabledServers=[]] - (Selfbot Only) Disabled servers for the bot.
+     */
+    
+    /**
+     * @param {AresOptions} [options] - Options to run the client with
+     */
     constructor(options = {}) {
         super(options);
         this.config = options;
@@ -20,8 +24,8 @@ class AresClient extends Discord.Client {
         this._prefix = null;
         console.log(`Logging in to Discord...`);
         //Message handling + other events
-        this.on('message', m);
-        this.on('ready', () => ready(this));
+        this.on('message', require('../events/message'));
+        this.on('ready', () => require('../events/ready')(this));
         process.on('unhandledRejection', console.error);
         //collections
         this.commands = new Collection();
@@ -50,17 +54,11 @@ class AresClient extends Discord.Client {
         if (message.guild) text = text
             .replace(/`/g, "`" + String.fromCharCode(8203))
             .replace(/@/g, "@" + String.fromCharCode(8203))
-            .replace(client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.channel.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.guild.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.member.guild.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0");
+            .replace(client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0");
         else text = text
             .replace(/`/g, "`" + String.fromCharCode(8203))
             .replace(/@/g, "@" + String.fromCharCode(8203))
-            .replace(client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0")
-            .replace(message.channel.client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0");
+            .replace(client.token, "MZoVkO_2G4Qv3TNOlWetWtjNDHBSVQFTm6YGtzq9P4UtG0");
         return text;
 
     }
@@ -68,8 +66,5 @@ class AresClient extends Discord.Client {
 
 }
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 module.exports = AresClient;

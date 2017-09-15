@@ -20,12 +20,12 @@ module.exports = class HelpCommand extends Command {
             sorted.forEach(c => {
                 const cat = c.category;
                 if(currentCategory !== cat) {
-                    output += `\n${cat}:\n`;
+                    output += `\n**${cat}:**\n`;
                     currentCategory = cat;
                 }
                 output += `${c.name}: ${c.description}\n`;
             });
-            output += '```';
+            
             const embed = new (require('discord.js')).MessageEmbed()
                 .setAuthor(`${this.client.config.selfbot ? 'Selfbot' : this.client.user.username} Commands`, this.client.user.displayAvatarURL())
                 .setDescription(output)
