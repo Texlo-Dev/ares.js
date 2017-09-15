@@ -1,6 +1,6 @@
 {
   "name": "ares.js",
-  "version": "1.2.32",
+  "version": "1.2.33",
   "description": "An easy to use, discord bot framework for Discord.js!",
   "git repository": "http://github.com/RTK99/ares.js",
   "main": "index.js",

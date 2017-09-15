@@ -14,7 +14,7 @@ module.exports = class HelpCommand extends Command {
         let cmdName = args[0];
         if (!cmdName) {
             const myCommands = this.client.commands.filter(c => c.hasPermission(message) === true);
-            let output = `\`\`\`Available commands in this server for ${message.author.username}:\n`;
+            let output = `Available commands in this server for ${message.author.username}:\n`;
             let currentCategory = "";
             const sorted = myCommands.sort((p, c) => p.category > c.category ? 1 : -1);
             sorted.forEach(c => {
