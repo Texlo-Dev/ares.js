@@ -21,21 +21,20 @@ class Command {
         return new Promise((resolve, reject) => {
             try {
                 let command = this.client.commands.get(this.name);
-                let name = [].push(command.name);
                 
-                delete require.cache[require.resolve(`../commands/${command.category.toLowerCase()}/${cmd.name}.js`)];
+                delete require.cache[require.resolve(`../commands/${command.category.toLowerCase()}/${command.name}.js`)];
                 let cmdFile = require(`../commands/${command.category.toLowerCase()}/${command.name}.js`);
                 let cmd = new cmdFile(this.client);
                 this.client.commands.delete(command.name);
                 this.client.aliases.forEach((cmd, alias) => {
-                    if (cmd === command) this.client.aliases.delete(alias);
+                    if (cmd === this.name) this.client.aliases.delete(alias);
                 });
-                cmd.name = name[0];
+                cmd.name = this.name;
                 cmd.category = command.category;
-                this.client.commands.set(name[0], cmd);
+                this.client.commands.set(this.name, cmd);
                 if (cmd.aliases && cmd.aliases.length) {
                     cmd.aliases.forEach(a => {
-                        this.client.aliases.set(a, name[0]);
+                        this.client.aliases.set(a, this.name);
                     });
                 }
                 resolve(command);
